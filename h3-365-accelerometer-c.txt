@@ -1,0 +1,44 @@
+#include <hidef.h>
+#include <mc9s12dg256.h>     
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+#include "main_asm.h" 
+#include "queue.h"
+
+
+
+
+int first[3], second[3], third[3];
+ 
+void main(void) 
+{
+
+int i, one=0, two=0, three=0;
+
+lcd_init();
+ad1_enable();
+
+
+while(1) 
+{
+
+clear_lcd();
+one=ad1conv(0);
+
+set_lcd_addr(0x00);
+write_int_lcd(one);
+two=ad1conv(1);
+set_lcd_addr(0x08);
+write_int_lcd(two);
+three=ad1conv(2);
+set_lcd_addr(0x40);
+write_int_lcd(three);
+
+for(i=0;i<3;i++) 
+{
+first[i]=one;
+second[i]=two;
+third[i]=three; 
+ms_delay(1000);
+}
+}   
+}

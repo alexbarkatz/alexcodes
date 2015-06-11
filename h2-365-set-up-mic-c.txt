@@ -1,0 +1,18 @@
+#include <hidef.h>      
+#include <mc9s12dg256.h>
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+
+#include "main_asm.h" /* interface to the assembly module */
+
+void main(void) {
+PLL_init(); // 
+ad0_enable();	
+lcd_init();  
+int array[1000000];
+while(1)  {
+	val  = ad0conv(7);      
+array[1000000] = array[1000000] >> 1;            
+set_lcd_addr(0x40);    
+write_int_lcd(array[1000000]);	
+ms_delay(100);
+}

@@ -1,0 +1,151 @@
+    #include <hidef.h>      /* common defines and macros */
+#include <mc9s12dg256.h>     /* derivative information */
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+#include "main_asm.h" /* interface to the assembly module */
+
+void main (void) {
+ 
+  
+  char code[16];
+  char items[20];
+  
+  int total=0;
+  int i=0;
+
+  int term1=0,term2=0;
+  char amount=0;
+  
+  lcd_init();
+  SCI1_init(2400);
+  SCI0_init(9600);
+
+  DDRH=0x00;
+  
+   while (1){
+   
+   clear_lcd();
+   
+   for (i=0;i<16;i++){
+    code[i] = inchar1();
+   }
+   
+        if (code[15] =='0'){
+           
+           type_lcd("Manhattan Bus");
+           ms_delay(1500);
+           }
+           if (code[15] =='1'){
+           
+           type_lcd("Queens Bus");
+           ms_delay(1500);
+           }
+           if (code[15] =='2'){
+           
+           type_lcd("Staten Island Bus");
+           ms_delay(1500);
+           }
+           
+   
+    if (code[15] =='4'){
+           
+           type_lcd("Brooklyn Bus");
+           ms_delay(1500);
+}}           }
+
+
+Part 2:
+
+RECEIVING CODE: 
+//  Lab 2: Bus Arrival Display
+#include <hidef.h>      /* common defines and macros */
+#include <mc9s12dg256.h>     /* derivative information */
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+#include "main_asm.h" /* interface to the assembly module */
+char c;
+void main(void) {
+SCI0_init(9600); // initialize SCI0 at 9600 
+lcd_init();
+while (1){
+clear_lcd();
+ c=inchar0(); 
+if (c=='0')  
+type_lcd("M34 is one stop away");  
+  
+if (c=='1')  
+  
+type_lcd("B42 is one stop away");
+  
+if (c=='2')   
+type_lcd("S38 is one stop away");
+if (c=='4') 
+  
+type_lcd("Q59 is one stop away");
+      ms_delay(1000);
+      
+}
+}
+
+    
+TRANSMITTING CODE:
+outchar code:
+
+
+#include <hidef.h>      /* common defines and macros */
+#include <mc9s12dg256.h>     /* derivative information */
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+#include "main_asm.h" /* interface to the assembly module */
+
+void main (void) {
+ 
+  
+  char code[16];
+  
+  int total=0;
+  int i=0;
+
+  lcd_init();
+  SCI1_init(2400);
+  SCI0_init(9600);
+
+  
+   while (1){
+   
+   clear_lcd();
+   
+   for (i=0;i<16;i++){
+    code[i] = inchar1();
+   }
+   
+        if (code[15] =='0'){
+           
+           type_lcd("M34 Has Arrived");
+           ms_delay(1500);
+           outchar0('0');
+           }
+           if (code[15] =='1'){
+           
+           type_lcd("B42 Has Arrived");
+           ms_delay(1500);
+           outchar0('1');
+           }
+           if (code[15] =='2'){
+           
+           type_lcd("Q59 Has Arrived");
+           ms_delay(1500);
+           outchar0('2');
+           }
+           
+   
+    if (code[15] =='4'){
+           
+           type_lcd("Brooklyn Has Arrived");
+           ms_delay(1500);
+           outchar0('4');
+           }
+  
+      
+   
+          
+   }
+}
+ 

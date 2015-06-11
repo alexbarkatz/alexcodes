@@ -1,0 +1,34 @@
+int volt=0,flag;
+ 
+
+void main(void) 
+{
+PLL_init(); 
+lcd_init();
+ad0_enable();
+DDRB=0xff;
+DDRP=0xff;
+PTP=1; 
+
+while(1)
+{
+flag=0;
+PORTB=0;
+volt=ad0conv(7); 
+
+set_lcd_addr(0x00);
+type_lcd("Volts: ");
+write_int_lcd(volt);
+ms_delay(800);
+
+if(volt>600){flag=1;}
+
+while(flag==1) 
+{
+PORTB=0xff;
+if(volt>600){flag=0;}
+ms_delay(800); 
+}
+}
+}
+

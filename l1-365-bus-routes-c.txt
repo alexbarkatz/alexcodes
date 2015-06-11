@@ -1,0 +1,165 @@
+#include <hidef.h>      /* common defines and macros */
+#include <mc9s12dg256.h>     /* derivative information */
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+#include "main_asm.h" /* interface to the assembly module */
+
+
+  
+  
+  
+  
+    
+     
+  void main(void){
+ 
+  
+   
+  
+     lcd_init();
+     PLL_init();
+     DDRH = 0x00;
+     
+    
+while(1) {
+
+if(PTH == 1) {
+  
+clear_lcd();
+set_lcd_addr(0x00);
+type_lcd("M34");
+set_lcd_addr(0x40);
+type_lcd("Crosstown");
+ms_delay(2000);
+clear_lcd();
+
+set_lcd_addr(0x00);
+type_lcd("Javit's Center");
+set_lcd_addr(0x40);
+type_lcd("UN Plaza");
+ms_delay(2000);
+clear_lcd();
+}
+
+if(PTH == 2) {
+clear_lcd();
+set_lcd_addr(0x00);
+type_lcd("M60");
+set_lcd_addr(0x40);
+type_lcd("5th Ave local");
+ms_delay(2000);
+clear_lcd();
+
+set_lcd_addr(0x00);
+type_lcd("Washington Sq");
+set_lcd_addr(0x40);
+type_lcd("125th St");
+ms_delay(2000);
+clear_lcd();
+}
+
+if(PTH == 4) {
+clear_lcd();
+set_lcd_addr(0x00);
+type_lcd("Q60");
+set_lcd_addr(0x40);
+type_lcd("Queens Blvd");
+ms_delay(2000);
+clear_lcd();
+
+set_lcd_addr(0x00);
+type_lcd("2nd Ave 60th St");
+set_lcd_addr(0x40);
+type_lcd("Jamaica Center");
+ms_delay(2000);
+clear_lcd();
+}
+
+if(PTH == 8) {
+clear_lcd();
+set_lcd_addr(0x00);
+type_lcd("M23");
+set_lcd_addr(0x40);
+type_lcd("Crosstown");
+ms_delay(2000);
+clear_lcd();
+
+set_lcd_addr(0x00);
+type_lcd("Chelsea Piers");
+set_lcd_addr(0x40);
+type_lcd("Heliport 1st Ave");
+ms_delay(2000);
+clear_lcd();
+}
+
+if(PTH == 16) {
+clear_lcd();
+set_lcd_addr(0x00);
+type_lcd("M10");
+set_lcd_addr(0x40);
+type_lcd("Lower East Side");
+ms_delay(2000);
+clear_lcd();
+
+set_lcd_addr(0x00);
+type_lcd("Wall St");
+set_lcd_addr(0x40);
+type_lcd("14th St Ave A");
+ms_delay(2000);
+clear_lcd();
+}
+  
+  if(PTH == 32) {
+clear_lcd();
+set_lcd_addr(0x00);
+type_lcd("M14");
+set_lcd_addr(0x40);
+type_lcd("Crosstown");
+ms_delay(2000);
+clear_lcd();
+
+set_lcd_addr(0x00);
+type_lcd("Meat Packing District");
+set_lcd_addr(0x40);
+type_lcd("14th St Ave C");
+ms_delay(2000);
+clear_lcd();
+}
+
+ if(PTH == 64) {
+clear_lcd();
+set_lcd_addr(0x00);
+type_lcd("M20");
+set_lcd_addr(0x40);
+type_lcd("Madison Ave Local");
+ms_delay(2000);
+clear_lcd();
+
+set_lcd_addr(0x00);
+type_lcd("Madison Sq Park");
+set_lcd_addr(0x40);
+type_lcd("125th St");
+ms_delay(2000);
+clear_lcd();
+}
+
+if(PTH == 128) {
+clear_lcd();
+set_lcd_addr(0x00);
+type_lcd("M01");
+set_lcd_addr(0x40);
+type_lcd("Broadway Local");
+ms_delay(2000);
+clear_lcd();
+
+set_lcd_addr(0x00);
+type_lcd("Bowling Green");
+set_lcd_addr(0x40);
+type_lcd("125th St Broadway");
+ms_delay(2000);
+clear_lcd();
+}
+  
+  
+}
+clear_lcd();
+  }

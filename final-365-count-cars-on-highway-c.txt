@@ -1,0 +1,107 @@
+#include <hidef.h>      /* common defines and macros */
+#include <mc9s12dg256.h>     /* derivative information */
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+#include "main_asm.h" /* interface to the assembly module */
+
+
+
+
+
+    unsigned short ticks;
+int sec,  min;
+int min1, min2, sec1,sec2;
+int count=0;
+
+
+void interrupt 7 timer() {
+  
+  ticks++;
+  if(ticks>99) {
+   sec++;
+  ticks=0;
+  }
+  if(sec>59) {
+    sec=0;
+  min++;
+  }
+  
+  clear_RTI_flag();
+}
+
+void main(void) {
+ 
+   
+  int force =0;    
+  
+  PLL_init();        
+  lcd_init();
+  ad0_enable();
+  RTI_init();
+  SCI1_init(2400);
+  SCI0_init(9600);
+  DDRH = 0x00;
+while(1) {
+
+
+force=ad0conv(6);
+    set_lcd_addr(0x40);
+    
+    
+
+ if(force>400) {
+      type_lcd("Car");
+     outchar0(min1+48);
+      outchar0(min2+48);
+       outchar0(' ');
+        outchar0(':');
+         outchar0(' ');
+         outchar0(sec1+48);
+         outchar0(sec2+48);
+         outchar0(' ');
+         outchar0(' ');
+     
+    ms_delay(1000);
+    clear_lcd();
+    outchar0(10);
+    outchar0(13);
+    count++;
+
+
+min1=min/10;
+min2=min%10;
+sec1=sec/10;
+sec2=sec%10;
+
+   
+    
+    }
+    
+    set_lcd_addr(0x00);
+                    write_int_lcd(min);
+       data8(':');
+                    write_int_lcd(sec);
+                    
+                    
+                    if(PTH==247) {
+                      outchar0(count+48);
+                    outchar0(10);
+                    outchar0(13);
+                        ms_delay(1000);
+                    
+                    }
+                    if(PTH==251) {
+                      count=0;
+                      min=0;
+                      sec=0;
+                    }
+                    
+                    
+      
+                   
+
+    
+}
+
+
+
+}

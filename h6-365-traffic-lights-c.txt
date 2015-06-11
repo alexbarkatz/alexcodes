@@ -1,0 +1,57 @@
+#include <hidef.h>    
+#include <mc9s12dg256.h>   
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+#include "main_asm.h"
+ 
+ 
+ 
+void main() {
+  PLL_init();       
+ 
+     lcd_init();
+     led_enable();
+     seg7_disable();
+       
+  while(1){
+ 
+ 
+    PORTB = 0b00100001;
+    set_lcd_addr(0x00);
+    type_lcd("East-West-Red");
+    set_lcd_addr(0x40);
+    type_lcd("North-S-Green");
+    ms_delay(5000);
+    clear_lcd();
+ 
+ 
+PORTB = 0b00010010;
+  set_lcd_addr(0x00);
+    type_lcd("East-West-Yellow");
+    set_lcd_addr(0x40);
+    type_lcd("North-S-Yellow");
+                       
+    ms_delay(1000);
+    clear_lcd();
+                                                           
+ 
+ 
+PORTB = 0b00001100;
+    set_lcd_addr(0x00);
+    type_lcd("East-West-Green");
+    set_lcd_addr(0x40);
+    type_lcd("North-S-Red");
+    ms_delay(5000);
+    clear_lcd();
+ 
+ 
+PORTB = 0b00010010;
+set_lcd_addr(0x00);
+    type_lcd("East-West-Yellow");
+    set_lcd_addr(0x40);
+    type_lcd("North-S-Yellow");
+                       
+    ms_delay(1000);
+    clear_lcd();
+ 
+ 
+  }
