@@ -1,0 +1,303 @@
+#include<iostream>
+using namespace std;
+
+struct node { //node
+  int info; //regular data
+  node *link; // pointer to the next node
+};
+
+class ll
+{
+public:
+ll()
+{
+size=0;
+head=NULL;
+}
+
+void create()
+{
+node *next; //create a node pointer
+cout << "Enter the size of the list you want to create:";
+cin >> size;
+  for(int i=0;i<size;i++)
+  {
+          next = new node; //create a new node
+          next->info=rand()%100;   //put data in the node       
+          next->link = head; //link the node to the head
+          head = next; // shift the head to the new node
+  }
+  cout << "Linked list created" << endl;
+}
+
+void print()
+{
+node *next; //create a node pointer
+next=head; // link the node pointer to the head
+cout << "No Memory   Info" << endl;
+cout << "================" << endl;
+for(int i=0;i<size;i++)
+{
+        cout << i << " " << next << " " << next->info << endl; //display node address and info
+        next=next->link; // move node pointer to the next node
+        }
+    
+     }
+
+void insert()
+{
+node *ins,*next; //create two node pointer
+int loc,value; 
+cout << "Enter the value to be inserted:";
+cin >> value;
+cout << "After which node do you want to insert a value? (Use -1 to insert above the head)";
+cin >> loc;
+
+if(loc==-1){ //if you want to append to the list
+          next = new node; //create a new node
+          next->info=value; // insert the required value in the node
+          next->link = head; // link the node to the head
+          head = next; // replace the head with the new node
+		  size++; // increase the list size by 1
+}
+else
+{
+next=head; //link the node to the head
+for(int i=0;i<loc;i++)  // traverse the list to the required node
+        next=next->link;
+
+ins = new node;  // create a new node
+ins->info = value;      // insert the required value in the node
+ins->link = next->link; // replace the node with the traversed node
+next->link = ins;  // replace the traversed node with the inserted node   
+size++; //increase list size
+}
+}
+
+void del()
+{
+node *p,*q; //create two node pointers
+int loc=0;
+p=head; // equate them to the list head
+q=head;
+cout << "Which node do you want to delete?";
+cin >> loc;
+
+if(loc==0) //if you want to delete the head
+{
+p=p->link; // move one node forward
+head=p; // replace the head with it
+delete p; // delete the old head 
+size--; //reduce size of list
+}
+else
+{
+for(int i=0;i<loc-1;i++) //traverse to the node before
+        p=p->link;
+
+for(int i=0;i<loc;i++) // traverse to the node to be deleted
+        q=q->link;
+
+p->link=q->link; // move the node
+delete q; //delete the node
+size--;//reduce the list size
+}
+}
+
+void search()
+{
+node *next; // create a node pointer
+next=head; //link it to the linked list
+int value,flag=-1;
+cout << "What value are you searching for?";
+cin >> value;
+for(int i=0;i<size;i++)
+{
+if(value==next->info) //search for value in list
+        flag=i; //store list index
+        
+        next=next->link;
+        }
+if(flag==-1)
+cout << "Value is absent" << endl;
+else
+cout << "Value is present at location " << flag << endl;
+     }
+
+void sort()
+{
+node *next, *temp;  //create two node pointers   
+temp= new node; //create a real node
+for(int i = 0; i < size; i++)
+     {
+          next=head; //start at the head
+          for (int j=0; j < size-1; j++)
+         {
+               if (next->info > next->link->info)   //compare node info
+              { 
+                    temp->info = next->info;  //swap node info
+                    next->info = next->link->info;
+                    next->link->info = temp->info;
+               }
+               next=next->link;//move to the next node
+          }
+     
+     }
+}
+
+void erase()
+{
+node *temp;     //pointer to deallocate the memory 
+for(int i=0;i<size;i++)
+{
+        temp = head;        //set temp to the current node 
+        head = head->link; //advance first to the next node 
+        delete temp;  //deallocate the memory occupied by temp 
+    } 
+head = NULL;
+size=0;
+
+}
+
+void copy(ll &obj2)
+{
+node *next, *next2; //create two node pointers
+next=head; // link the nodes to the lists
+next2=obj2.head;
+for(int i=0;i<size;i++)
+  {
+          next2 = new node; //create new node
+          next2->info=next->info;   //fill it with values from the old node
+		  next2->link = obj2.head; // replace the node link with the head
+          obj2.head = next2;// replace the head with the node
+          next=next->link; //move to next node 
+  }
+obj2.size=size;//replace the size
+}
+
+void isempty()
+{
+     if(size==0)
+     cout << "List is empty" << endl;
+     else
+     cout <<"List is not empty"<<endl;
+     }
+
+void front()
+{
+    if(size==0)
+		cout << "No list present" << endl;
+	else
+	cout << head -> info << endl;
+     }
+     
+void back()
+{
+    if(size==0)
+		cout << "No list present" << endl;
+	else
+	{
+	node *next;
+next = head;
+for(int i=0;i<size-1;i++)
+next = next -> link;
+
+cout << next -> info << endl;
+     }
+}
+
+void length()
+{
+     cout << "List length = " << size << endl;
+     }
+     
+private:
+node *head; //the first node of the first linked list
+int size; //size of the first linked list
+};
+
+int main()
+{
+int choice=0;
+ll obj1,obj2;
+
+while(1)
+{
+system("cls");
+cout << "Menu" << endl;
+cout << "====" << endl;
+cout << "1. Create a list" << endl;
+cout << "2. Print first list" << endl;
+cout << "3. Insert node" << endl;
+cout << "4. Delete node" << endl;
+cout << "5. Search for node" << endl;
+cout << "6. Sort list" << endl;
+cout << "7. Erase list" << endl;
+cout << "8. Copy first list to second list" << endl;
+cout << "9. Print second list" << endl;
+cout << "10. Is list empty?" << endl;
+cout << "11. Front" << endl;
+cout << "12. Back" << endl;
+cout << "13. Length" << endl;
+
+cin >> choice;
+switch(choice){
+case 1:
+	obj1.create();
+	break;
+
+case 2:
+	obj1.print();
+	break;
+
+case 3:
+	obj1.insert();
+	break;
+
+case 4:
+	obj1.del();
+	break;
+
+case 5:
+	obj1.search();
+	break;
+
+case 6:
+	obj1.sort();
+	break;
+
+case 7:
+	obj1.erase();
+	break;
+
+case 8:
+	obj1.copy(obj2);
+	break;
+
+case 9:
+	obj2.print();
+	break;
+
+case 10:
+	obj1.isempty();
+	break;
+
+case 11:
+	obj1.front();
+	break;
+
+case 12:
+	obj1.back();
+	break;
+
+case 13:
+	obj1.length();
+	break;
+
+default:
+	cout << "Invalid option" << endl;
+}
+system("pause");
+}
+return 0;
+}

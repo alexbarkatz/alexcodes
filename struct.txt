@@ -1,0 +1,128 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+struct date//sub struct
+{
+int day;
+int month;
+int year;
+};
+
+struct student //main struct
+{
+string name;//struct member
+date DOB;
+date start;
+double GPA;
+int scores[3];//array within a struct
+};
+
+void fill(student x[]) // parameter type must be student
+{
+	for(int i=0;i<3;i++)
+	{
+	cout<<"Enter name:";
+	cin >> x[i].name;
+	cout << "Enter DOB day:";
+	cin >> x[i].DOB.day;
+	cout << "Enter DOB month:";
+	cin >> x[i].DOB.month;
+	cout << "Enter DOB year:";
+	cin >> x[i].DOB.year;
+	cout << "Enter start day:";
+	cin >> x[i].start.day;
+	cout << "Enter start month:";
+	cin >> x[i].start.month;
+	cout << "Enter start year:";
+	cin >> x[i].start.year;
+	cout << "Enter GPA:";
+	cin >> x[i].GPA;
+	for(int j=0;j<3;j++)
+	{
+	cout << "Enter score " << j << ":";
+	cin >> x[i].scores[j];
+	}
+	}
+}
+
+void display(student x[]) // parameter type must be student
+{
+for(int i=0;i<3;i++)
+	cout << x[i].name << "\t" << x[i].DOB.month << "/" << x[i].DOB.day << "/" << x[i].DOB.year <<"\t"
+	<< x[i].start.month << "/" << x[i].start.day << "/" << x[i].start.year << "\t"
+	<< x[i].GPA << "\t" << x[i].scores[0] << "\t" << x[i].scores[1] << "\t" << x[i].scores[2] << endl; 
+}
+
+void avg_GPA(student x[])
+{
+	float avg=0;
+for(int i=0;i<3;i++)
+	avg=avg+x[i].GPA;
+
+cout << "Average GPA = " << avg/3.0 << endl;
+}
+
+void avg_scores(student x[])
+{
+float avg=0;
+for(int i=0;i<3;i++)
+{
+	avg=0;//should reset average after each student
+	for(int j=0;j<3;j++)
+	{
+		avg=avg+x[i].scores[j];
+	}
+		cout << "Average score = " << avg/3.0 << endl;
+}
+}
+
+void search_scores(student x[])
+{
+string temp;
+int match=0;
+cout << "Enter student name:";
+cin >> temp;
+for(int i=0;i<3;i++)
+	{
+		if(temp==x[i].name)
+		{
+			match=1;//used to show no match at the end
+			for(int j=0;j<3;j++)
+				cout << x[i].scores[j] << endl;
+			break;
+		}
+	}
+
+if(match==0) cout << "No match found!" << endl;
+}
+
+void sort(student x[])
+{
+	student temp;
+	for(int i=0;i<2;i++) //outer loop should be one less than list length
+{
+	for(int j=0;j<2-i;j++) // inner loop iterations should decrease by 1 constantly
+	{
+		if(x[j].name>x[j+1].name) //if numbers are not in ascending order swap entire struct
+		{
+		temp=x[j];
+		x[j]=x[j+1];
+		x[j+1]=temp;
+		}
+		}
+	}
+}
+
+int main()
+{
+student comp370[3]; //array of struct student
+fill(comp370);
+display(comp370);
+avg_GPA(comp370);
+avg_scores(comp370);
+search_scores(comp370);
+sort(comp370);
+display(comp370);
+return 0;
+}

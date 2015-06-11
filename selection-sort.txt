@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+int list[7] = {45,5,6,7,8,9,11};
+int temp,swaps=0,searches=0,smallest=0;
+for(int i=0;i<6;i++) //outer loop should be one less than list length
+{
+	smallest=i;
+	for(int j=i+1;j<7;j++) // inner loop iterations should decrease by 1 from the front
+	{
+		searches++;
+		if(list[j]<list[smallest]) //move smallest number to top of unsorted list
+		{
+		swaps++;
+		temp=list[j];
+		list[j]=list[smallest];
+		list[smallest]=temp;
+		}
+	}
+}
+
+for(int i=0;i<7;i++)
+	cout << list[i] << "\t";
+cout << endl;
+cout << "Total swaps = " << swaps << endl;
+cout << "Total searches = " << searches << endl;
+return 0;
+}

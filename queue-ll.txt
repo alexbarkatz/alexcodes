@@ -1,0 +1,216 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+struct node{
+string name;
+int age;
+node *link;
+};
+
+class queue
+{
+public:
+node *head;//pointer to create array
+int size;
+
+public:
+
+queue()
+{
+size=0;
+head=NULL;
+}
+
+void print()
+{
+node *next; //create a node pointer
+next=head; // link the node pointer to the head
+
+for(int i=0;i<size;i++)
+{
+        cout << next->name << "\t" << next->age << endl; //display node address and info
+        next=next->link; // move node pointer to the next node
+        }
+    
+     }
+
+void front()
+{
+	if(size==0)
+		cout << "Queue is empty" << endl;
+	else
+	{
+node *next; //create a node pointer
+next=head; // link the node pointer to the head
+
+for(int i=0;i<size-1;i++)
+        next=next->link; // move node pointer to the next node
+
+cout << next->name << "\t" << next->age << endl; //display node address and info
+
+     }
+}
+
+void back()
+{
+		if(size==0)
+		cout << "Queue is empty" << endl;
+	else
+	{
+	cout << head->name << "\t" << head->age << endl; //display node address and info
+     }
+}
+
+void add()
+{
+node *next; //create two node pointer
+string value1; 
+int value2; 
+cout << "Enter the name to be inserted:";
+cin >> value1;
+cout << "Enter the age to be inserted:";
+cin >> value2;
+
+          next = new node; //create a new node
+          next->name=value1; // insert the required value in the node
+          next->age=value2; // insert the required value in the node
+          
+		  next->link = head; // link the node to the head
+          head = next; // replace the head with the new node
+		  size++; // increase the list size by 1
+
+}
+
+void del()
+{
+		if(size==0)
+		cout << "Queue is empty" << endl;
+	else
+	{
+node *p,*q; //create two node pointers
+p=head; // equate them to the list head
+q=head;
+
+for(int i=0;i<size-2;i++) //traverse to the node before
+        p=p->link;
+
+for(int i=0;i<size-1;i++) // traverse to the node to be deleted
+        q=q->link;
+
+p->link=q->link; // move the node
+delete q; //delete the node
+size--;//reduce the list size
+}
+}
+
+void search()
+{
+node *next; // create a node pointer
+next=head; //link it to the linked list
+string value;
+int flag=-1;
+cout << "What name are you searching for?";
+cin >> value;
+for(int i=0;i<size;i++)
+{
+if(value==next->name) //search for value in list
+        flag=i; //store list index
+        
+        next=next->link;
+        }
+if(flag==-1)
+cout << "Value is absent" << endl;
+else
+cout << "Value is present at location " << flag << endl;
+     }
+
+void empty()
+{
+if(size==0)
+	cout << "Queue is empty" << endl;
+else
+	cout << "Queue is not empty" << endl;
+}
+
+void copy(queue &obj2)
+{
+node *next, *next2; //create two node pointers
+next=head; // link the nodes to the lists
+next2=obj2.head;
+for(int i=0;i<size;i++)
+  {
+          next2 = new node; //create new node
+          next2->name=next->name;   //fill it with values from the old node
+          next2->age=next->age;   //fill it with values from the old node
+		  next2->link = obj2.head; // replace the node link with the head
+          obj2.head = next2;// replace the head with the node
+          next=next->link; //move to next node 
+  }
+obj2.size=size;//replace the size
+}
+};
+
+int main()
+{
+int choice=0;
+queue obj1, obj2;
+while(1)
+{
+system("cls");
+cout << "Menu" << endl;
+cout << "====" << endl;
+cout << "1. Print" << endl;
+cout << "2. Front" << endl;
+cout << "3. Back" << endl;
+cout << "4. Add" << endl;
+cout << "5. Del" << endl;
+cout << "6. Search " << endl;
+cout << "7. Is empty?" << endl;
+cout << "8. Copy Queue 1 to Queue 2" << endl;
+cout << "9. Print Queue 2" << endl;
+cin >> choice;
+switch(choice){
+case 1:
+	obj1.print();
+	break;
+
+case 2:
+	obj1.front();
+	break;
+
+case 3:
+	obj1.back();
+	break;
+
+case 4:
+	obj1.add();
+	break;
+
+case 5:
+	obj1.del();
+	break;
+
+case 6:
+	obj1.search();
+	break;
+
+case 7:
+	obj1.empty();
+	break;
+
+case 8:
+	obj1.copy(obj2);
+	break;
+
+case 9:
+	obj2.print();
+	break;
+
+default:
+	cout << "Invalid option" << endl;
+}
+system("pause");
+}
+return 0;
+}

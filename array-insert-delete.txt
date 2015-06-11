@@ -1,0 +1,54 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	int values[10]={0};
+	int total=5,index=0,num=0;
+	int choice=0;
+	for(int i=0;i<5;i++)//creating the list
+		values[i]=rand();
+
+	while(1)
+	{
+	cout << "1. Display"  << endl;
+	cout << "2. Delete"  << endl;
+	cout << "3. Insert"  << endl;
+	cin >> choice;
+
+	switch(choice)
+	{
+	case 1:
+	for(int i=0;i<total;i++)
+		cout << &values[i] << " " << values[i] << endl;
+	break;
+
+	case 2:
+		cout << "Which index value do you want to delete?";
+		cin >> index;
+		for(int i=index;i<total-1;i++)//deleting the value and reducing the list by 1
+			values[i]=values[i+1];
+		total--;
+	break;
+	
+	case 3:
+		cout << "Which index value do you want to insert?";
+		cin >> index;
+		cout << "Which value do you want to insert?";
+		cin >> num;
+
+		for(int i=total;i>=index;i--)//moving values from the end
+			values[i+1]=values[i];
+		
+		values[index]=num;//actual item insertion
+
+		total++;//increasing the list size
+	break;
+	}
+	}
+
+
+
+
+	return 0;
+}

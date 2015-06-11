@@ -1,0 +1,170 @@
+#include<iostream>
+using namespace std;
+
+struct node
+{
+int info;
+node *link;
+};
+
+class stack
+{
+private:
+node *head;
+int size;
+
+public:
+
+stack()
+{
+size=0;
+head=NULL;
+}
+
+void print()
+{
+	if(size==0)
+		cout << "Stack Empty" << endl;
+	else
+	{
+node *next; //create a node pointer
+next=head; // link the node pointer to the head
+for(int i=0;i<size;i++)
+{
+        cout << next->info << endl; //display node info
+        next=next->link; // move node pointer to the next node
+        }
+     }
+}
+
+void top()
+{
+if(size==0)
+	cout << "Stack is empty" << endl;
+else
+	cout << head->info << endl;
+}
+
+void push(){
+node *next; //create two node pointer
+int value; 
+cout << "Enter the value to be inserted:";
+cin >> value;
+next = new node; //create a new node
+next->info=value; // insert the required value in the node
+next->link = head; // link the node to the head
+head = next; // replace the head with the new node
+size++; // increase the list size by 1
+}
+
+void pop()
+{
+node *p,*q; //create two node pointers
+p=head; // equate them to the list head
+q=head; // equate them to the list head
+p=p->link; // move one node forward
+head=p; // replace the head with it
+delete q; // delete the old head 
+size--; //reduce size of list
+}
+
+void search()
+{
+node *next; // create a node pointer
+next=head; //link it to the linked list
+int value,flag=-1;
+cout << "What value are you searching for?";
+cin >> value;
+for(int i=0;i<size;i++)
+{
+if(value==next->info) //search for value in list
+        flag=i; //store list index
+        
+        next=next->link;
+        }
+if(flag==-1)
+cout << "Value is absent" << endl;
+else
+cout << "Value is present at location " << flag << endl;
+     }
+
+void stacksize()
+{
+cout << "Size = " << size << endl;
+}
+
+void copy(stack &obj2)
+{
+node *next, *next2; //create two node pointers
+next=head; // link the nodes to the lists
+next2=obj2.head;
+for(int i=0;i<size;i++)
+  {
+          next2 = new node; //create new node
+          next2->info=next->info;   //fill it with values from the old node
+		  next2->link = obj2.head; // replace the node link with the head
+          obj2.head = next2;// replace the head with the node
+          next=next->link; //move to next node 
+  }
+obj2.size=size;//replace the size
+}
+};
+
+int main()
+{
+int choice=0;
+stack obj1,obj2;
+while(1)
+{
+system("cls");
+cout << "Menu" << endl;
+cout << "====" << endl;
+cout << "1. Print stack" << endl;
+cout << "2. Top" << endl;
+cout << "3. Push" << endl;
+cout << "4. Pop" << endl;
+cout << "5. Search stack" << endl;
+cout << "6. Stack size" << endl;
+cout << "7. Copy stack" << endl;
+cout << "8. Print stack 2" << endl;
+cin >> choice;
+switch(choice){
+case 1:
+	obj1.print();
+	break;
+
+case 2:
+	obj1.top();
+	break;
+
+case 3:
+	obj1.push();
+	break;
+
+case 4:
+	obj1.pop();
+	break;
+
+case 5:
+	obj1.search();
+	break;
+
+case 6:
+	obj1.stacksize();
+	break;
+
+case 7:
+	obj1.copy(obj2);
+	break;
+
+case 8:
+	obj2.print();
+	break;
+
+default:
+	cout << "Invalid option" << endl;
+}
+system("pause");
+}
+return 0;
+}

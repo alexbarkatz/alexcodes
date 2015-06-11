@@ -1,0 +1,186 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+template <class type>//template for generaic datatype
+
+class stack
+{
+private:
+type *p;//pointer to create array
+int stacktop;
+int size;
+
+public:
+
+stack()
+{
+size=0;
+stacktop=0;
+}
+
+void create()
+{
+cout << "Enter stack size:";
+cin >> size;
+p = new type[size];
+cout << "Stack created" << endl;
+}
+
+void print(){
+for(int i=0;i<stacktop;i++)
+	cout << p[i] << endl;
+}
+
+void top()
+{
+	if(stacktop==0)
+		cout << "Stack empty" << endl;
+	else
+cout << p[stacktop-1] << endl;
+}
+
+void push()
+{
+if(stacktop==size)
+	cout << "Stack is full" << endl;
+else
+{
+type temp;
+cout << "Enter value:";
+cin >> temp;
+p[stacktop]=temp;
+stacktop++;
+}
+}
+
+void pop()
+{
+stacktop--;
+}
+
+void search()
+{
+type temp;
+int flag=0;
+cout << "Enter value to search:";
+cin >> temp;
+for(int i=0;i<stacktop;i++)
+{
+	if(temp==p[i])
+	{
+		flag=1;
+		break;
+	}
+}
+if(flag==0)
+	cout << "Value absent" << endl;
+else
+	cout << "Value present" << endl;
+}
+
+void empty()
+{
+if(stacktop==0)
+	cout << "Stack is empty" << endl;
+else
+	cout << "Stack is not empty" << endl;
+}
+
+void full()
+{
+if(stacktop==size)
+	cout << "Stack is full" << endl;
+else
+	cout << "Stack is not full" << endl;
+}
+
+void specs()
+{
+	cout << "Present Size = " << stacktop << endl;
+	cout << "Max Size = " << size << endl;
+	cout << "Empty slots = " << size-stacktop << endl;
+}
+void copy(stack obj2)
+{
+delete [] p;//delete obj1 stack
+size=obj2.size;//transfer specs from stack 2 to 1
+stacktop=obj2.stacktop;
+p = new type[size];//create a new stack or required size
+for(int i=0;i<stacktop;i++) //transfer stack contents
+	p[i]=obj2.p[i];
+
+}
+};
+
+int main()
+{
+int choice=0;
+stack <string> obj1;
+stack <string> obj2;
+obj1.create();
+obj2.create();
+while(1)
+{
+system("cls");
+cout << "Menu" << endl;
+cout << "====" << endl;
+cout << "1. Print stack" << endl;
+cout << "2. Top" << endl;
+cout << "3. Push" << endl;
+cout << "4. Pop" << endl;
+cout << "5. Search stack" << endl;
+cout << "6. Is stack empty?" << endl;
+cout << "7. Is stack full?" << endl;
+cout << "8. Stack specs" << endl;
+cout << "9. Copy stack" << endl;
+cout << "10. Push to stack 2" << endl;
+cin >> choice;
+switch(choice){
+case 1:
+	obj1.print();
+	break;
+
+case 2:
+	obj1.top();
+	break;
+
+case 3:
+	obj1.push();
+	break;
+
+case 4:
+	obj1.pop();
+	break;
+
+case 5:
+	obj1.search();
+	break;
+
+case 6:
+	obj1.empty();
+	break;
+
+case 7:
+	obj1.full();
+	break;
+
+case 8:
+	obj1.specs();
+	break;
+
+case 9:
+	obj1.copy(obj2);
+	break;
+
+case 10:
+	obj2.push();
+	break;
+
+default:
+	cout << "Invalid option" << endl;
+}
+system("pause");
+}
+return 0;
+}

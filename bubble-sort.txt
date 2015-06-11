@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+
+
+int main()
+{
+int list[7] = {53,5,467,12,6,52,3};
+int temp,swaps=0,searches=0;
+for(int i=0;i<6;i++) //outer loop should be one less than list length
+{
+	for(int j=0;j<6-i;j++) // inner loop iterations should decrease by 1 constantly
+	{
+		searches++;
+		if(list[j]>list[j+1]) //if numbers are not in ascending order swap
+		{
+		swaps++;
+		temp=list[j];
+		list[j]=list[j+1];
+		list[j+1]=temp;
+		}
+	}
+}
+
+for(int i=0;i<7;i++)
+	cout << list[i] << "\t";
+cout << endl;
+cout << "Total swaps = " << swaps << endl;
+cout << "Total searches = " << searches << endl;
+return 0;
+}
