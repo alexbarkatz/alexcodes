@@ -1,0 +1,25 @@
+ RFduinoBLE.advertisementData = "temp";
+ Serial.begin(9600);
+  // start the BLE stack
+  RFduinoBLE.begin();
+  
+}
+
+void loop() {
+  
+   Senval=analogRead(Senpin);
+
+    Serial.println(Senval);
+
+    delay(200);
+  
+   
+  
+  RFduino_ULPDelay( SECONDS(1) );
+
+ 
+  float temp = RFduino_temperature(CELSIUS);
+
+  // send the sample to the iPhone
+  RFduinoBLE.sendFloat(Senval);
+}
