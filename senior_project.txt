@@ -1,4 +1,11 @@
- RFduinoBLE.advertisementData = "temp";
+ #include <RFduinoBLE.h>
+
+int Senval=0;
+int Senpin=1;
+
+void setup()
+{
+   RFduinoBLE.advertisementData = "temp";
  Serial.begin(9600);
   // start the BLE stack
   RFduinoBLE.begin();
