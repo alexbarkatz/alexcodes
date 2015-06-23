@@ -1,0 +1,117 @@
+#include<vector>
+#include<iostream>
+#include<algorithm>
+#include<deque>
+#include<iterator>
+#include<list>
+#include<vector>
+
+using namespace std;
+
+
+int main()
+{
+	vector<int> vecList(10, 0);
+	vector<int>list2(10,0);//create a vector of size 10 and fill it with 8s
+	vector<int>::iterator move, beg, end;  //create 3 iterators
+	int choice,resize,fillin,insert;
+	while (1)
+	{
+		cout << endl;
+		cout << "\t" << "MENU" << endl;
+		cout << "\t" << "====" << endl << endl;
+		cout << "1.  Delete" << endl;            // vecList.clear() Deletes all the elements from the container.
+		cout << "2.  Return the first element" << endl;   //vecList.front()
+		cout << "3.  Return the last element" << endl;    //veclist.back()
+		cout << "4.  Search" << endl;     // vecCont.empty() Returns true if the container vecCont is empty, false otherwise.
+		cout << "5.  Check how many elements in your vector" << endl;//vecCont.size() Returns the number of elements currently in the container vecCont.
+		cout << "6.  Delete the last element" << endl; // vecList.pop_back()Deletes the last element.
+		cout << "7.  Resize your vector" << endl; // vecList.resize(num, elem)Changes the number of elements to num.If size() increases, the default constructor creates the new elements.
+		cout << "8.  Copy vector" << endl;
+		cout << "9.  Insert number " << endl;
+		cout << "10. Print vector" << endl;
+
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 1:
+		{
+			vecList.clear();
+			break;
+		}
+		case 2:
+		{
+			cout<<vecList.front();
+			break;
+		}
+		case 3:
+		{
+			cout<<vecList.back();
+			break;
+		}
+		case 4:
+		{
+			int num = 0;
+			cout << "Enter a number to search:";
+			cin >> num;
+			if (binary_search(vecList.begin(), vecList.end(), num))
+				cout << "Number is present" << endl;
+			else
+				cout << "Number is absent" << endl;
+			break;
+		}
+		case 5:
+		{
+			cout<<vecList.size();
+			break;
+		}
+		case 6:
+		{
+			vecList.pop_back();
+			break;
+		}
+		case 7:
+		{
+			cout << "\nWhat would you like to resize to? ";
+			cin >> resize;
+			cout << "\nWhat number would you like to fill in? ";
+				cin >> fillin;
+			vecList.resize(resize, fillin);
+
+
+			break;
+		}
+		case 8:
+		
+			//create a new vector
+			list2 = vecList;//copy all contents of list to list2
+			for (move = vecList.begin(); move < vecList.end(); move++)//display list using iterators
+				cout << *move << " ";
+			cout << endl;
+			for (move = list2.begin(); move < list2.end(); move++)//display list using iterators
+				cout << *move << " ";
+			break;
+		
+		case 9:
+		{
+			cout << "What number would you like to insert? ";
+			cin >> insert;
+			vecList.push_back(insert);
+			break;
+		}
+		case 10:
+		{
+			for (move = vecList.begin(); move < vecList.end(); move++)//display list using iterators
+				cout << *move << " ";
+
+			break;
+		}
+		}
+
+	}
+
+
+	system("pause");
+	return 0;
+}
