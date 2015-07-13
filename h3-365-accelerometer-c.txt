@@ -7,7 +7,7 @@
 
 
 
-int first[3], second[3], third[3];
+int first[3], second[3], third[3];//change
  
 void main(void) 
 {
