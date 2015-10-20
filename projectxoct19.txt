@@ -1,0 +1,55 @@
+//Arduino Code
+
+int pot0;
+int pot1;
+int pot2;
+int pot3;
+int pot4;
+int pot5;
+
+int Senpin0=A0;
+int Senpin1=A1;
+int Senpin2=A2;
+int Senpin3=A3;
+int Senpin4=A4;
+int Senpin5=A5;
+
+void setup() {
+
+Serial.begin(9600);
+
+}
+
+void loop() {
+  
+pot0 = analogRead(Senpin0);
+pot1 = analogRead(Senpin1);
+pot2 = analogRead(Senpin2);
+pot3 = analogRead(Senpin3);
+pot4 = analogRead(Senpin4);
+pot5 = analogRead(Senpin5);
+
+Serial.print(pot0);
+delay(1);
+Serial.print(",");
+delay(1);
+Serial.print(pot1);
+delay(1);
+Serial.print(",");
+delay(1);
+Serial.print(pot2);
+delay(1);
+Serial.print(",");
+delay(1);
+Serial.print(pot3);
+delay(1);
+Serial.print(",");
+delay(1);
+Serial.print(pot4);
+delay(1);
+Serial.print(",");
+delay(1);
+Serial.println(pot5);
+delay(25);
+delay(500);
+}
