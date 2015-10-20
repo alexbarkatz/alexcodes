@@ -44,7 +44,7 @@ delay(1);
 Serial.print(pot3);
 delay(1);
 Serial.print(",");
-delay(1);
+delay(25);
 Serial.print(pot4);
 delay(1);
 Serial.print(",");
