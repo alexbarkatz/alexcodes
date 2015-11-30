@@ -1,0 +1,107 @@
+#include <hidef.h>      /* common defines and macros */
+#include <mc9s12dg256.h>     /* derivative information */
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+#include "main_asm.h" /* interface to the assembly module */
+
+
+     void interrupt 13 handler()
+
+{
+
+tone(500);
+
+}
+
+ int password[4];
+
+void main(void) {
+
+
+int light=0;
+int force=0;
+int j;
+int flag;
+
+int b;
+PLL_init();
+lcd_init();
+ad0_enable();
+keypad_enable();
+sound_init();
+seg7_disable();
+led_enable();
+DDRH=0x00;
+
+while(1)
+{
+ 
+
+
+
+//start light
+
+light=ad0conv(4);
+set_lcd_addr(0x00);
+type_lcd("L=");
+write_int_lcd(light);
+
+
+
+ //end light
+
+
+
+
+//start force
+force=ad0conv(6);
+set_lcd_addr(0x40);
+type_lcd("F=");
+write_int_lcd(force);
+
+ms_delay(1000);
+//end force
+
+
+if ((light <40) || (force<900)) {
+  
+  
+sound_on();
+leds_on(0xff);
+  flag=0;
+
+while(flag==0){  //stay here until correct passcode is entered
+  
+clear_lcd();
+type_lcd("Password");
+for(j=0; j<4; j++) {
+  password[j]=getkey();
+  wait_keyup();
+data8('*');
+}
+         
+  
+if((password[0] ==0x01) && (password[1] ==0x02) && (password[2] ==0x03) && (password[3] ==0x04)) {
+  flag=1;
+   clear_lcd();
+   type_lcd("Access Granted");
+   ms_delay(1000);
+   sound_off();
+   leds_off();
+   clear_lcd();
+} else
+ 
+         {
+          
+ clear_lcd();
+  set_lcd_addr(0x40);
+ type_lcd("ACCESS DENIED");
+ ms_delay(1000); 
+ clear_lcd();
+     }
+}
+}
+}
+
+
+
+}
