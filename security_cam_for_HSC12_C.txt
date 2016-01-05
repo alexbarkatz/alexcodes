@@ -1,0 +1,159 @@
+#include <hidef.h>      /* common defines and macros */
+#include <mc9s12dg256.h>     /* derivative information */
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+ 
+#include "main_asm.h" /* interface to the assembly module */
+ 
+ 
+
+
+void main(void){
+  
+int width1, width2, degree1, degree2;
+PLL_init();
+servo76_init();
+servo54_init();
+lcd_init();
+DDRH=0;
+DDRB=0xff;
+DDRP=0xff;
+
+width1=1100;
+width2=1100;
+degree1=(width1-1100)/50;
+degree2=(width2-1100)/50;
+
+
+while(1) {
+
+
+set_servo76(width1);
+set_servo54(width2);
+
+set_lcd_addr(0x00);
+type_lcd("M1= ");
+write_int_lcd(degree1);
+type_lcd(" Degree");
+set_lcd_addr(0x40);
+type_lcd("M2= ");
+write_int_lcd(degree2);
+type_lcd(" Degree");
+
+if(degree1>180 || degree1<0) {
+  
+  clear_lcd();
+  type_lcd("Reached Limit");
+  ms_delay(2000);
+}
+
+if(degree2>180 || degree2<0) {
+  
+  clear_lcd();
+  type_lcd("Reached Limit");
+  ms_delay(2000);
+}
+
+  
+  if(PTH==247) {
+  
+  
+    
+   width1=width1+200;  
+   degree1=(width1-1100)/34.444444;   
+    
+  }
+  if(PTH==251) {
+    
+    width1=width1-200;
+    degree1=(width1-1100)/34.44444444;
+    
+  }
+ if(PTH==253) {
+    
+   
+   width2=width2+200;
+   degree2=(width2-1100)/34.44444444;  
+   
+  }
+   if(PTH==254) {
+    
+    width2=width2-200;
+    degree2=(width2-1100)/34.44444444;
+    
+   
+  }
+  
+}
+
+  min++;
+  }
+  
+  clear_RTI_flag();
+}
+
+void main(void) {
+ 
+   
+  int force =0;    
+  
+  PLL_init();        
+  lcd_init();
+  ad0_enable();
+  RTI_init();
+  SCI1_init(2400);
+  SCI0_init(9600);
+  DDRH = 0x00;
+while(1) {
+
+
+force=ad0conv(6);
+    set_lcd_addr(0x40);
+    
+    
+
+ if(force>400) {
+      type_lcd("Car");
+     outchar0(min1+48);
+      outchar0(min2+48);
+       outchar0(' ');
+        outchar0(':');
+         outchar0(' ');
+         outchar0(sec1+48);
+         outchar0(sec2+48);
+         outchar0(' ');
+         outchar0(' ');
+     
+    ms_delay(1000);
+    clear_lcd();
+    outchar0(10);
+    outchar0(13);
+    count++;
+
+
+min1=min/10;
+min2=min%10;
+sec1=sec/10;
+sec2=sec%10;
+
+   
+    
+    }
+    
+    set_lcd_addr(0x00);
+                    write_int_lcd(min);
+       data8(':');
+                    write_int_lcd(sec);
+                    
+                    
+                    if(PTH==247) {
+                      outchar0(count+48);
+                    outchar0(10);
+                    outchar0(13);
+                        ms_delay(1000);
+                    
+                    }
+                    if(PTH==251) {
+                      count=0;
+                      min=0;
+                      sec=0;
+                    }

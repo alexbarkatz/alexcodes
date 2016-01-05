@@ -1,0 +1,129 @@
+#include <hidef.h>      /* common defines and macros */
+#include <mc9s12dg256.h>     /* derivative information */
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+#include "main_asm.h" /* interface to the assembly module */
+
+
+#define C 1434;
+#define A 853;
+#define B 760;
+#define D 1277;
+#define E 1138;
+#define F 1074;
+#define G 957;
+
+
+
+int pitch;
+int HB[28]={
+  957,0,957,853,957,1434,760,957,0,957,853,957,1277,1434,957,0,957,1138,1434,760,853,1074,0,1074,1138,1434,1277,1434
+};
+
+
+
+int twinkle[42]= 
+{
+  1434,1434,957,957,853,853,957,1074,1074,1138,1138,1277,1277,1434,957,957,1074,1074,1138,1138,1277,1434,1434,957,957,853,853,957,1074,1074,1138,1138,1277,1277,1434
+};
+int mary[29]= {
+  1138,1277,1434, 1277,1138,1138,1138,0,1277,1277,1277,1138,1138,1138,1138,0,1277,1434,1277,1138,1138,1138,0,1138,1277,1277,1277,1434  
+};
+
+int range[20]= {
+  957,957,1434,1277,1138,1434,760,853,1074,1074,1074,1138,1074,957,1434,1434,1434,760,1434,1277
+};
+
+void interrupt 13 tune() {  
+tone(pitch);
+}
+
+
+void main (void) {
+ 
+  
+  
+  
+  int i=0;
+  
+  
+  
+  PLL_init();
+  lcd_init();
+  led_enable();
+  sound_init();
+   DDRH=0;
+  
+  
+   while (1){
+   
+   clear_lcd();
+   type_lcd("1.Happy Birthday");
+   set_lcd_addr(0x40);
+   type_lcd("2.Twinkle Little Star");
+    ms_delay(1000);
+     clear_lcd();
+   type_lcd("1.My Way");
+   set_lcd_addr(0x40);
+   type_lcd("2.New York, New York");
+    ms_delay(1000);
+    
+    if(PTH == 247) {
+      
+      for(i=0; i<28; i++) {
+      PORTB=0x55;
+      sound_on();
+      ms_delay(250);
+      
+      pitch=HB[i];
+      PORTB=0xAA;
+      ms_delay(250);
+        sound_off();
+      }
+       
+    }
+    if(PTH==251){
+      
+      for(i=0; i<42; i++) {
+      PORTB=0xff;
+      ms_delay(250);
+      sound_on();
+      pitch=twinkle[i];
+      PORTB=0x00;
+      ms_delay(250);
+        sound_off();
+      }
+       
+    }
+     if(PTH==253){
+      
+      for(i=0; i<26; i++) {
+      PORTB=0b00001111;
+      ms_delay(250);
+      sound_on();
+      pitch=mary[i];
+      PORTB=0b11110000;
+      ms_delay(250);
+        sound_off();
+      }
+      
+   }
+    if(PTH==254){
+      
+      for(i=0; i<20; i++) {
+      PORTB=0b00000011;
+       ms_delay(125);
+      sound_on();
+      PORTB=0b00001100;
+      ms_delay(125);
+      pitch=mary[i];
+      PORTB=0b00110000;
+      ms_delay(125);
+      PORTB=0b11000000;
+      ms_delay(125);
+        sound_off();
+        
+      }
+      
+   }
+}  
+}

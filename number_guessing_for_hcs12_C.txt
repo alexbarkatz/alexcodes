@@ -1,0 +1,104 @@
+#include <hidef.h>      /* common defines and macros */
+#include <mc9s12dg256.h>     /* derivative information */
+#include <stdlib.h>
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+
+
+#include "main_asm.h" /* interface to the assembly module */
+
+int i, h, u, num,guess, pitch;
+int count = 0;
+
+
+void interrupt 13 handler() {
+     tone(pitch);
+};
+
+void main(void) {
+  PLL_init();
+  lcd_init();
+  keypad_enable();
+  sound_init();
+  seg7_disable();
+  led_enable();
+  
+    
+  while(1) {
+    guess=rand()%100;
+    count=0;
+     sound_off();
+     PORTB=0;
+     
+     set_lcd_addr(0x00);
+        type_lcd("Wellcome to the");
+    set_lcd_addr(0x40);
+    type_lcd("Game");
+    ms_delay(2000);
+
+      while(num!=guess && count<=10) {
+ 
+    clear_lcd();
+    set_lcd_addr(0x00);
+    type_lcd("Guess the #:");
+    
+
+    
+    u = getkey();
+    wait_keyup();
+    data8(u+48);
+    h = getkey();
+    wait_keyup();
+    data8(h+48);
+    num=u*10+h;
+    count++;
+    ms_delay(1000);
+        if(num<guess) {
+          clear_lcd();
+          set_lcd_addr(0x00);
+          type_lcd("Number is too ");
+          set_lcd_addr(0x40);
+          type_lcd("low! Try Again");
+          
+        }
+        if(num>guess) {         
+           clear_lcd();
+                set_lcd_addr(0x00);
+           type_lcd("Number is too ");
+           set_lcd_addr(0x40);
+           type_lcd("high! Try Again");
+        } 
+        ms_delay(1000);    
+      }
+      
+         sound_on();
+         clear_lcd();
+    
+     if(num==guess) {
+     
+     for(i=0;i<50;i++){
+
+        
+      set_lcd_addr(0x00);
+         type_lcd("WINNER");
+         pitch = 500+rand()%3000;
+         PORTB = rand();
+         ms_delay(20);
+ 
+     }
+       
+     }
+       else {
+     for(i=0;i<50;i++){
+              set_lcd_addr(0x00);
+         type_lcd("LOSER");
+         pitch = 500+rand()%3000;
+         PORTB = rand();
+         ms_delay(20);
+     }
+       
+            
+       }
+      
+ }
+}
+

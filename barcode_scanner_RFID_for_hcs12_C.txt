@@ -1,0 +1,166 @@
+   #include <hidef.h>      /* common defines and macros */
+#include <mc9s12dg256.h>     /* derivative information */
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+#include "main_asm.h" /* interface to the assembly module */
+
+void main (void) {
+ 
+  
+  char code[16];
+  char items[20];
+  
+  int total=0;
+  int i=0;
+
+  int term1=0,term2=0;
+  char amount=0;
+  
+  lcd_init();
+  SCI1_init(2400);
+  SCI0_init(9600);
+
+  DDRH=0x00;
+  
+   while (1){
+   
+   clear_lcd();
+   
+   for (i=0;i<16;i++){
+    code[i] = inchar1();
+   }
+   
+   
+   
+  
+      
+    if (code[15] =='5'){
+           
+           type_lcd("Water $2");
+           ms_delay(1500);
+           }
+    
+    
+    if (code[15] =='4'){
+           
+           type_lcd("Bread $2");
+           ms_delay(1500);
+           }
+           
+    if (code[15] =='1'){
+           
+           type_lcd("Milk $3");
+           ms_delay(1500);
+           }
+    
+    
+    if (code[15] =='3'){
+           
+           type_lcd("Chips $1");
+           ms_delay(1500);
+           }
+          
+     items[amount]=code[15];
+         amount++;
+     
+          ms_delay(1000);
+          
+          
+     if(PTH == 254){
+     
+     for (i=0;i<amount;i++){
+     if(items[i]=='5'){
+          
+           outchar0('W');
+           outchar0('a'); 
+           outchar0('t'); 
+           outchar0('e');
+           outchar0('r');
+           outchar0(' ');
+           outchar0('$');
+           outchar0('2');
+           outchar0(10);
+           outchar0(13);
+           total= total+2;
+           
+             
+          }
+     
+         if(items[i]=='4'){
+          
+           outchar0('B');
+           outchar0('r'); 
+           outchar0('e'); 
+           outchar0('a');
+           outchar0('d');
+            outchar0(' ');
+           outchar0('$');
+           outchar0('2');
+           outchar0(10);
+           outchar0(13);
+               total= total+2;
+          }
+     if(items[i]=='1'){
+          
+           outchar0('M');
+           outchar0('i'); 
+           outchar0('l'); 
+           outchar0('k');
+            outchar0(' ');
+           outchar0('$');
+           outchar0('3');
+           outchar0(10);
+           outchar0(13);
+             total= total+3;
+             
+          }
+     
+     if(items[i]=='3'){
+          
+           outchar0('C');
+           outchar0('h'); 
+           outchar0('i'); 
+           outchar0('p');
+           outchar0('s');
+           outchar0(' ');
+           outchar0('$');
+           outchar0('1');
+           outchar0(10);
+           outchar0(13);
+           
+           total= total+1;
+          }
+        
+        
+     
+       
+        
+   
+     }
+     
+       
+         term1 = total %10;
+         term2 = total /10;
+         
+         
+        outchar0('T');
+        outchar0('O');
+        outchar0('T');
+        outchar0('A');
+        outchar0('L');
+        outchar0(' ');
+        outchar0('$');  
+        outchar0(t2+48);  
+        outchar0(t1+48);  
+   total=0;
+   amount=0;     
+       outchar0(10);  
+       outchar0(13);   
+     }
+           
+     if(PTH==253){
+     amount --;
+   
+     }
+           
+     }
+     

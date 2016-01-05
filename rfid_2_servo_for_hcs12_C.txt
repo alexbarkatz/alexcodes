@@ -1,0 +1,217 @@
+#include <hidef.h>      /* common defines and macros */
+#include <mc9s12dg256.h>     /* derivative information */
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+#include "main_asm.h" /* interface to the assembly module */
+
+
+
+
+unsigned short ticks;
+int sec,  min;
+int min1, min2, sec1,sec2;
+int motor;
+
+void interrupt 7 timer() {
+  
+  ticks++;
+  if(ticks>99) {
+   sec++;
+  ticks=0;
+  }
+  if(sec>59) {
+    sec=0;
+  min++;
+  }
+  
+  clear_RTI_flag();
+}
+
+
+
+
+void main (void) {
+ 
+  
+  char code[16];
+  
+  int i=0;
+  
+  RTI_init();
+  PLL_init();
+  lcd_init();
+  servo76_init();
+  SCI1_init(2400);
+  SCI0_init(9600);
+  
+  
+
+   while (1){
+   
+   clear_lcd();
+   
+   type_lcd("TOUCH CARD:");
+   
+   for (i=0;i<16;i++){
+    code[i] = inchar1();
+   }
+   
+   
+   
+  
+      
+    if (code[15] =='5'){
+          set_lcd_addr(0x00);
+           
+          type_lcd("Welcome Alex");
+          min1 = min/10;
+          min2 = min%10;
+          sec1 = sec/10;
+          sec2 = sec%10;
+          
+          outchar0(min1+48);
+          outchar0(min2+48);
+          outchar0(' ');
+          outchar0(':');
+          outchar0(' ');
+          outchar0(sec1+48);
+          outchar0(sec2+48);
+          outchar0(' ');
+          outchar0(' ');
+          outchar0(' ');
+          outchar0(' ');
+          outchar0(' ');
+          outchar0('A');
+          outchar0('l');
+          outchar0('e');
+          outchar0('x');
+          outchar0(10);
+          outchar0(13);
+          
+          
+          set_lcd_addr(0x40);
+          write_int_lcd(min+48);
+          data8(':');
+          write_int_lcd(sec+48);
+          
+           }
+    
+    
+    if (code[15] =='2'){
+    set_lcd_addr(0x00);
+           
+           type_lcd("Welcome Luiz");
+             min1 = min/10;
+          min2 = min%10;
+          sec1 = sec/10;
+          sec2 = sec%10;
+          
+          outchar0(min1+48);
+          outchar0(min2+48);
+          outchar0(' ');
+          outchar0(':');
+          outchar0(' ');
+          outchar0(sec1+48);
+          outchar0(sec2+48);
+          outchar0(' ');
+          outchar0(' ');
+          outchar0(' ');
+          outchar0(' ');
+          outchar0(' ');
+          outchar0('L');
+          outchar0('u');
+          outchar0('i');
+          outchar0('z');
+          outchar0(10);
+          outchar0(13);
+          set_lcd_addr(0x40);
+          write_int_lcd(min);
+          data8(':');
+          write_int_lcd(sec);
+           }
+           
+    if (code[15] =='1'){
+    set_lcd_addr(0x00);
+           
+           type_lcd("Welcome JD");
+           min1 = min/10;
+          min2 = min%10;
+          sec1 = sec/10;
+          sec2 = sec%10;
+          
+          outchar0(min1+48);
+          outchar0(min2+48);
+          outchar0(' ');
+          outchar0(':');
+          outchar0(' ');
+          outchar0(sec1+48);
+          outchar0(sec2+48);
+          outchar0(' ');
+          outchar0(' ');
+          outchar0(' ');
+          outchar0(' ');
+          outchar0(' ');
+          outchar0('J');
+          outchar0('D');
+          outchar0(10);
+          outchar0(13);
+          set_lcd_addr(0x40);
+          write_int_lcd(min);
+          data8(':');
+          write_int_lcd(sec);
+           }
+    
+    
+    if (code[15] =='6'){
+    set_lcd_addr(0x00);
+           
+           type_lcd("Welcome Dwight");
+           min1 = min/10;
+          min2 = min%10;
+          sec1 = sec/10;
+          sec2 = sec%10;
+          
+          outchar0(min1+48);
+          outchar0(min2+48);
+          outchar0(' ');
+          outchar0(':');
+          outchar0(' ');
+          outchar0(sec1+48);
+          outchar0(sec2+48);
+          outchar0(' ');
+          outchar0(' ');
+          outchar0(' ');
+          outchar0(' ');
+          outchar0(' ');
+         outchar0('D');
+          outchar0('w');
+          outchar0('i');
+          outchar0('g');
+           outchar0('h');
+          outchar0('t');
+          outchar0(10);
+          outchar0(13);
+          set_lcd_addr(0x40);
+          write_int_lcd(min);
+          data8(':');
+          write_int_lcd(sec);
+           }
+        
+        for(motor = 4000; motor <= 6000; motor = motor + 5)
+        {
+           set_servo76(motor) ; 
+            ms_delay (5) ;
+
+        }
+         for(motor = 6000; motor >= 4000; motor = motor + 5)
+        {
+           set_servo76(motor) ; 
+            ms_delay (5) ;
+
+        }
+   }
+}
+
+
+
+
+

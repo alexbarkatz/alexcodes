@@ -1,0 +1,73 @@
+ #include <hidef.h>      /* common defines and macros */
+#include <mc9s12dg256.h>     /* derivative information */
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
+#include "main_asm.h" /* interface to the assembly module */
+
+
+     void interrupt 13 handler()
+
+{
+
+tone(397);
+
+}
+
+void main()
+{
+int sec;
+int timer;
+int tensec;
+int onesec;
+
+  PLL_init();
+  lcd_init();
+  keypad_enable();
+  sound_init();
+  
+DDRB=0xFF;
+DDRP=0xFF;
+PTP=3;
+   
+
+while(1) {
+ clear_lcd();
+ set_lcd_addr(0x00);
+type_lcd("Input seconds: ");
+  tensec = getkey();
+ wait_keyup();
+data8(tensec+48);
+ onesec = getkey();
+ wait_keyup();
+data8(onesec+48);
+  timer = tensec*10+onesec;
+  
+while(timer>0) {
+
+PORTB=1;
+set_lcd_addr(0x40);
+write_int_lcd(timer);
+timer--;
+ms_delay(1000);
+
+
+}
+clear_lcd();
+type_lcd("FOOD READY");
+
+PORTB=0;
+sound_on();
+ms_delay(3000);
+sound_off();
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+}
+  
+}
