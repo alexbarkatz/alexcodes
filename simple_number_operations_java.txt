@@ -1,0 +1,84 @@
+package Packlab1;
+
+import java.util.Scanner;
+
+public class lab1
+{
+
+	int num1;
+	int num2;
+	int num3;
+	
+	public lab1()
+	
+	{
+		num1=0;
+		num2=0;
+		num3=0;
+	}
+	
+	public int sum()
+	{
+		return(num1+num2+num3);
+	}
+	public double average()
+	{
+		return((num1+num2+num3)/3);
+		
+	}
+	public int multiply()
+	{
+		return(num1*num2*num3);
+	}
+	
+	public int max()
+	{
+	    return Math.max(num1,Math.max(num2,num3));
+	   
+	} 
+	
+	public int min()
+	{
+		return Math.min(num1,  Math.min(num2,num3));
+	}
+	
+	
+		public static  class Test
+		{
+			public static void main (String[] args)
+			{
+				int first, second, third, addition,multiply, largest, smallest;
+				double average;
+				Scanner input = new Scanner(System.in);
+				System.out.println("Enter the first number: ");
+				first = input.nextInt();
+				System.out.println("Enter 2nd number: ");
+				second = input.nextInt();
+				System.out.println("Enter 3rd number: ");
+				third = input.nextInt();
+				lab1 Numbers= new lab1();
+				Numbers.num1=first;
+				Numbers.num2=second;
+				Numbers.num3=third;
+				
+				addition = Numbers.sum();
+				System.out.println("The sum is " + addition);
+				
+				average = Numbers.average();
+				System.out.printf("The average is: %.2f ",  average);
+				
+				multiply = Numbers.multiply();
+				System.out.println("\nThe product is " + multiply);
+				
+				largest = Numbers.max();
+				System.out.println("The largest number is: " + largest);
+				
+				smallest = Numbers.min();
+				System.out.println("The smallest number is: " + smallest);
+			}
+		
+			
+		}
+
+	}
+

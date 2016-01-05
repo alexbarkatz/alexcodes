@@ -1,0 +1,177 @@
+package comp274lab2pack;
+
+public class TestController
+{
+	
+	public static void main(String[] args)
+	{
+		UnionEmployee union = new UnionEmployee("Astrid", "Aviation", 24, 60, 20 );
+		CommissionEmployee commission = new CommissionEmployee("Sarah", "Legal",26,40, 10, 100);
+		Employees employee = new Employees ("Xavier", " Finance", 25, 40 );
+		
+		
+		
+		
+		System.out.println( "Name and Department: " +" "+ employee.Access( ) );
+		System.out.println("Type of employee: Regular");
+		System.out.println("Hours worked: 40" );
+		System.out.println("Hourly Rate:  $26 ");
+		System.out.println("Weekly pay of employee: " +"$" + employee.week_pay(40));
+		
+		System.out.println( "\n\nName and Department: " +" "+ union.Access( ) );
+		System.out.println("Type of employee: Union");
+		System.out.println("Hours worked: 60" );
+		System.out.println("Hourly Rate:  $22 ");
+		System.out.println("Union Dues: $20");
+		System.out.println("Weekly pay of union employee: " +"$" + union.week_pay(40));
+		
+		System.out.println( "\n\nName and Department: " +" "+ commission.Access( ) );
+		System.out.println("Type of employee: Commission");
+		System.out.println("Hours worked: 40" );
+		System.out.println("Hourly Rate: $ 25 ");
+		System.out.println("Commission rate: 10%");
+		System.out.println("Sales: $100");
+		System.out.println("Weekly pay of commission employee: " +"$" + commission.week_pay(40));
+		
+		
+		
+		
+	
+		
+			
+	}
+
+}
+
+FILE EMPLOYEES
+package comp274lab2pack;
+
+public class Employees 
+
+{
+	public String EmployeeName;
+	public String Department;
+	public double HourlyRate;
+	public double HoursWorked;
+	
+	
+	public Employees (String EmployeeName, String Department, double HourlyRate, double HoursWorked)
+	{
+		this.EmployeeName = EmployeeName;
+		this.Department = Department;
+		this.HourlyRate = HourlyRate;
+		this.HoursWorked = HoursWorked;
+		
+		
+	}
+
+	
+
+	public void Mutate_Department( String Department)
+	{
+		this.Department = Department;
+		
+	}
+	
+	public void Mutate_HourlyRate( Double HourlyRate)
+	{
+		this.HourlyRate = HourlyRate;
+		
+	}
+	
+	public void Mutate_HoursWorked(Double HoursWorked)
+	{
+		this.HoursWorked = HoursWorked;
+		
+	}
+
+
+	public String Access ()
+{
+	return EmployeeName + " " + " works in " + " " + Department;
+	
+}
+	
+	double week_pay ( int hours)
+	{
+	
+		
+		
+		if ( HoursWorked<40)
+		{
+			return (HoursWorked * HourlyRate);
+		}
+		
+		else return (HourlyRate * 40);
+	}
+}
+
+class UnionEmployee extends Employees
+
+{
+	double dues;
+	
+	
+	UnionEmployee ( String EmployeeName, String Department, double HourlyRate, double HoursWorked, double dues )
+	
+	{
+		super (EmployeeName, Department, HourlyRate, HoursWorked);
+		
+		this.dues = dues;
+		
+	}
+	
+	public void Mutate_dues (double dues)
+	{
+		this.dues = dues;
+		
+	}
+
+	double week_pay (int hours)
+	{
+		
+		if ( HoursWorked <= 40)
+		{
+			return (super.week_pay(hours));
+			
+		}
+		
+		else
+			return ((super.week_pay(40) + ((HoursWorked - 40)* HourlyRate * 1.5))-dues );
+		
+	}
+}
+
+class CommissionEmployee extends Employees
+
+{
+	
+	double commission_rate;
+	double amount_sales;
+	
+	CommissionEmployee ( String EmployeeName, String Department, double HourlyRate, double HoursWorked,  double commission_rate, double amount_sales)
+	{
+		super (EmployeeName, Department, HourlyRate, HoursWorked);
+		
+	}
+	
+	public void Mutate_commission (double commission_rate)
+	{
+		this.commission_rate = commission_rate;
+	}
+	
+	public void Mutate_sales (double amount_sales)
+	{
+		this.amount_sales = amount_sales;
+		
+	}
+	
+	double week_pay (int hours)
+	{
+		return (HourlyRate* HoursWorked + commission_rate/100* amount_sales);
+		
+	}
+	
+}
+	
+	

@@ -1,0 +1,82 @@
+package Calculator;
+
+import javax.swing.*;
+
+import java.awt.*;
+
+
+public class Calc extends JFrame
+
+{
+	
+	public  Calc()
+	{
+	setLayout(new GridLayout(4,4,5,5));
+	{
+		
+	JButton p7 = (JButton) add(new JButton("7"));
+	JButton p8 = (JButton) add(new JButton("8"));
+	JButton p9 = (JButton) add(new JButton("9"));
+	JButton pdivide = (JButton) add(new JButton("/"));
+	JButton p4 = (JButton) add(new JButton("4"));
+	JButton p5 = (JButton) add(new JButton("5"));
+	JButton p6 = (JButton) add(new JButton("6"));
+	JButton pstar = (JButton) add(new JButton("*"));
+	JButton p1 = (JButton) add(new JButton("1"));
+	JButton p2 = (JButton) add(new JButton("2"));
+	JButton p3 = (JButton) add(new JButton("3"));
+	JButton pminus = (JButton) add(new JButton("-"));
+	JButton p0 = (JButton) add(new JButton("0"));
+	JButton pdot = (JButton) add(new JButton("."));
+	JButton pequal = (JButton) add(new JButton("="));
+	JButton pplus = (JButton) add(new JButton("+"));
+	p7.setBackground(Color.WHITE);
+	p8.setBackground(Color.BLUE);
+	p9.setBackground(Color.WHITE);
+	pdivide.setBackground(Color.BLUE);
+	p4.setBackground(Color.BLUE);
+	p5.setBackground(Color.WHITE);
+	p6.setBackground(Color.BLUE);
+	pstar.setBackground(Color.WHITE);
+	p1.setBackground(Color.WHITE);
+	p2.setBackground(Color.BLUE);
+	p3.setBackground(Color.WHITE);
+	pminus.setBackground(Color.BLUE);
+	p0.setBackground(Color.BLUE);
+	pdot.setBackground(Color.WHITE);
+	pequal.setBackground(Color.BLUE);
+	pplus.setBackground(Color.WHITE);
+	p7.setFont(new Font("sansserif",Font.BOLD,16));
+	p8.setFont(new Font("sansserif",Font.BOLD,16));
+	p9.setFont(new Font("sansserif",Font.BOLD,16));
+	pdivide.setFont(new Font("sansserif",Font.BOLD,16));
+	p4.setFont(new Font("sansserif",Font.BOLD,16));
+	p5.setFont(new Font("sansserif",Font.BOLD,16));
+	p6.setFont(new Font("sansserif",Font.BOLD,16));
+	pstar.setFont(new Font("sansserif",Font.BOLD,16));
+	p1.setFont(new Font("sansserif",Font.BOLD,16));
+	p2.setFont(new Font("sansserif",Font.BOLD,16));
+	p3.setFont(new Font("sansserif",Font.BOLD,16));
+	pminus.setFont(new Font("sansserif",Font.BOLD,16));
+	p0.setFont(new Font("sansserif",Font.BOLD,16));
+	pdot.setFont(new Font("sansserif",Font.BOLD,16));
+	pequal.setFont(new Font("sansserif",Font.BOLD,16));
+	pplus.setFont(new Font("sansserif",Font.BOLD,16));
+
+	
+	}
+}
+
+public static void main(String[] args)
+{
+	
+	Calc frame = new Calc( );
+	frame.setTitle("Lab3Calculator");
+	frame.setSize(250, 250);
+	frame.setLocationRelativeTo(null);
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	frame.setVisible(true);
+			
+}
+
+}

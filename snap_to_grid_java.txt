@@ -1,0 +1,87 @@
+package Lab3_pt2;
+
+import javax.swing.*;
+
+
+
+import java.awt.*;
+
+
+public class Display extends JFrame
+{
+	
+	JFrame frame;
+	JLabel label1;
+	JLabel label2;
+	JButton cancel;
+	JButton help;
+	JButton ok;
+	JCheckBox cb1;
+	JCheckBox cb2;
+	JTextField textField1;
+	JTextField textField2;
+
+	JPanel panel1;
+	JPanel panel2;
+	JPanel panel3;
+	JPanel panel4;
+	public Display()
+	{
+	frame = new JFrame("Align");
+
+	cancel = new JButton("Cancel");
+	help = new JButton(" Help ");
+	ok = new JButton(" OK ");
+
+	cb1 = new JCheckBox("Snap to Grid");
+	cb2 = new JCheckBox("Show Grid");
+
+	label1 = new JLabel("X");
+	label2 = new JLabel("Y");
+
+	textField1 = new JTextField(3);
+	textField2 = new JTextField(3);
+	panel4 = new JPanel();
+	panel1 = new JPanel();
+	panel2 = new JPanel();
+	panel3 = new JPanel();
+
+	panel4.setLayout(new BoxLayout(panel4, BoxLayout.Y_AXIS));
+	panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
+	panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+	panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
+
+	panel4.add(cancel);
+	panel4.add(Box.createRigidArea(new Dimension(0,5)));
+	panel4.add(help);
+	panel4.add(Box.createRigidArea(new Dimension(0,5)));
+	panel4.add(ok);
+
+	panel1.add(cb1);
+	panel1.add(cb2);
+	panel2.add(label1);
+	panel2.add(Box.createRigidArea(new Dimension(0,5)));
+	panel2.add(label2);
+	panel3.add(textField1);
+	panel3.add(Box.createRigidArea(new Dimension(0,5)));
+	panel3.add(textField2);
+
+	frame.add(panel1);
+	frame.add(panel2);
+	frame.add(panel3);
+	frame.add(panel4);
+
+
+
+
+	frame.setSize(300, 160);
+	frame.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	frame.setVisible(true);
+
+	}
+
+	public static void main(String[] args) {
+	new Display();
+	}
+	}

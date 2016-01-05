@@ -1,0 +1,161 @@
+
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+public class userInterface extends JFrame implements ActionListener
+
+ {
+
+	public CalenderManager calender;
+	public JTextField Month, day, year;
+	public JScrollPane Content;
+	public JTextArea text;
+	public JButton input, save;
+	public JLabel m, d, y;
+
+	public userInterface() 
+{
+		super("Calendar");
+		setLayout(new FlowLayout());
+		calender = new CalenderManager();
+
+		m = new JLabel("MONTH");
+		d = new JLabel("DAY");
+		y = new JLabel("YEAR");
+		Month = new JTextField(10);
+		day = new JTextField(10);
+		year = new JTextField(10);
+		add(m);
+		add(Month);
+		add(d);
+		add(day);
+		add(y);
+		add(year);
+
+		text = new JTextArea(10, 25);
+		add(new JScrollPane(text));
+
+	
+		input = new JButton("input");
+		add(input);
+		input.addActionListener((ActionListener) this);
+		save = new JButton("SAVE");
+		add(save);
+		save.addActionListener(this);
+		
+
+	}
+	
+	
+	public void actionPerformed(ActionEvent e) {
+		
+		CalenderManager c=new CalenderManager();
+		if(e.getSource() == input){
+			text.setText(c.getEntry(Month.getText(), day.getText(), year.getText()));
+		}
+		if(e.getSource() == save){
+			text.setText(c.saveEntry(Month.getText(), day.getText(), year.getText(), text.getText()));
+		}
+		
+	}
+
+
+	
+
+}
+
+
+
+public class CalenderManager {
+
+	public String[] array;
+
+	public CalenderManager() {
+		String fname="base.dir";
+		File dir = new File(fname);
+		if (!dir.exists())
+			dir.mkdir();
+		JFileChooser filechooser = new JFileChooser();
+		filechooser.setCurrentDirectory(dir);
+		filechooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	}
+
+	public String saveEntry(String month, String day, String year, String entry) {
+		getFile(month, year);
+		try {
+			array[Integer.parseInt(day) - 1] = entry;
+			FileOutputStream f;
+			ObjectOutputStream fop;
+			File file;
+
+			file = new File(month + " " + year + ".dat");
+			f = new FileOutputStream(file);
+			fop = new ObjectOutputStream(f);
+
+			fop.writeObject(array);
+			fop.close();
+
+			return "Success";
+		} catch (Exception e) {
+			return "Error";
+		}
+	}
+
+	private void getFile(String month, String year) {
+		try {
+
+			File file = new File(month + " " + year + ".dat");
+			if (!file.exists()) {
+				file.createNewFile();
+				array = new String[31];
+			} else {
+				FileInputStream fw = new FileInputStream(file.getAbsoluteFile());
+				ObjectInputStream bw = new ObjectInputStream(fw);
+				array = (String[]) bw.readObject();
+				bw.close();
+			}
+
+		} catch (IOException e) {
+			array = new String[31];
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			
+			array = new String[31];
+			e.printStackTrace();
+		}
+
+	}
+
+	public String getEntry(String month, String day, String year) {
+		getFile(month, year);
+		String data = array[Integer.parseInt(day) - 1];
+		if (data != null) {
+			return data;
+		}
+		return "TODAY IS MY BIRTHDAY";
+
+	}
+
+}
+
+
+
+
+
+public class CalendarTest {
+
+	
+	public static void main(String[] args) {
+		
+		userInterface uI = new userInterface();
+		uI.setSize(500, 500);
+		uI.setVisible(true);
+		uI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	}
+
+}

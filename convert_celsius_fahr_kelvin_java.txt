@@ -1,0 +1,138 @@
+
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+public class lab4b  extends JFrame {
+
+	
+	
+private JPanel convertFrom, convertTo;
+private JPanel inputtext, outputPanel;
+private JLabel label1, label2, label3, label4;
+private JTextField temperature1, temperature2;
+private ButtonGroup radioFrom, radioTo;
+private JRadioButton celciusBoxTo, fahrenheitBoxTo,
+kelvinBoxTo, celciusBoxFrom, fahrenheitBoxFrom, kelvinBoxFrom;
+
+
+
+
+public lab4b()
+{
+
+	label1 = new JLabel( "From" );
+	label2 = new JLabel( "To" );
+	label3 = new JLabel( "Input " );
+	label4 = new JLabel( "Output " );
+	temperature1 = new JTextField(5);
+	temperature2 = new JTextField(5); 
+
+fahrenheitBoxFrom = new JRadioButton( "Fahrenheit");
+celciusBoxFrom = new JRadioButton( "Celcius");
+kelvinBoxFrom = new JRadioButton( "Kelvin");
+
+radioFrom = new ButtonGroup();
+radioFrom.add( fahrenheitBoxFrom );
+radioFrom.add( celciusBoxFrom );
+radioFrom.add( kelvinBoxFrom );
+
+fahrenheitBoxTo = new JRadioButton( "Fahrenheit");
+celciusBoxTo = new JRadioButton( "Celcius");
+kelvinBoxTo = new JRadioButton( "Kelvin");
+
+radioTo = new ButtonGroup();
+radioTo.add( fahrenheitBoxTo );
+radioTo.add( celciusBoxTo );
+radioTo.add( kelvinBoxTo );
+
+convertFrom = new JPanel();
+convertFrom.setLayout( new GridLayout( 4, 1 ) );
+convertFrom.add(label1);
+convertFrom.add( fahrenheitBoxFrom );
+convertFrom.add( celciusBoxFrom );
+convertFrom.add( kelvinBoxFrom );
+
+convertTo = new JPanel();
+convertTo.setLayout( new GridLayout( 4, 1 ) );
+convertTo.add(label2);
+convertTo.add( fahrenheitBoxTo );
+convertTo.add( celciusBoxTo );
+convertTo.add( kelvinBoxTo );
+
+inputtext = new JPanel();
+inputtext.add(label3);
+inputtext.add(temperature1);
+
+
+
+outputPanel = new JPanel();
+outputPanel.add(label4);
+outputPanel.add(temperature2);
+
+
+
+this.add(inputtext, BorderLayout.NORTH);
+this.add(convertTo, BorderLayout.EAST);
+this.add(outputPanel, BorderLayout.SOUTH);
+this.add(convertFrom, BorderLayout.WEST);
+
+temperature1.addActionListener(
+new ActionListener() { 
+public void actionPerformed( ActionEvent event )
+{
+int convertTemp, temp;
+temp = Integer.parseInt( ( ( JTextField )
+event.getSource() ).getText() );
+if ( fahrenheitBoxFrom.isSelected() &&                        
+celciusBoxTo.isSelected() ) {
+convertTemp = ( int ) ( 5.0f / 9.0f * ( temp - 32 ) );
+temperature2.setText( String.valueOf( convertTemp ) );
+}
+else if ( fahrenheitBoxFrom.isSelected() &&                
+kelvinBoxTo.isSelected() ) {
+convertTemp = ( int )
+( 5.0f / 9.0f * ( temp - 32 ) + 273 );
+temperature2.setText( String.valueOf( convertTemp ) );
+}
+else if ( celciusBoxFrom.isSelected() &&                           
+fahrenheitBoxTo.isSelected() ) {
+convertTemp = ( int ) ( 9.0f / 5.0f * temp + 32 );
+temperature2.setText( String.valueOf( convertTemp ) );
+}
+else if ( celciusBoxFrom.isSelected() &&
+kelvinBoxTo.isSelected() ) {
+convertTemp = temp + 273;
+temperature2.setText( String.valueOf( convertTemp ) );
+}
+else if ( kelvinBoxFrom.isSelected() &&
+celciusBoxTo.isSelected() ) {
+convertTemp = temp - 273;
+temperature2.setText( String.valueOf( convertTemp ) );
+}
+else if ( kelvinBoxFrom.isSelected() &&
+fahrenheitBoxTo.isSelected() ) {
+convertTemp = ( int ) ( 5.0f /
+9.0f * ( temp - 273 ) + 32 );
+temperature2.setText( String.valueOf( convertTemp ) );
+}
+}
+} 
+);
+
+
+
+}
+public  static void main(String[] args)
+{
+	    JFrame frame = new lab4b();
+	    frame.setTitle("Lab4");
+	    frame.setLocationRelativeTo(null); 
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.setSize(300,200);
+	    frame.setVisible(true);
+	  }
+}

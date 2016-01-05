@@ -1,0 +1,64 @@
+
+
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+
+public class ConcentricCircles extends JPanel
+{
+  // draw eight Circles separated by 10 pixels
+   public void paintComponent( Graphics g )
+   {  
+      super.paintComponent( g );
+
+      // create 8 concentric circles
+      for ( int topLeft = 0; topLeft <= 80; topLeft += 10 )
+      {
+    	  
+         int radius = 160 - ( topLeft * 2 );
+        
+      
+        if(topLeft == 0)
+        {
+         g.setColor(Color.CYAN);
+        }
+        
+        if(topLeft == 10 )
+        {
+        	g.setColor(Color.GRAY);
+        }
+
+        if(topLeft == 20 )
+        {
+        	g.setColor(Color.CYAN);
+        }
+        	
+        	  if(topLeft == 30 )
+              {
+              	g.setColor(Color.GRAY);
+              } 
+        if(topLeft == 40)
+        {
+        	g.setColor(Color.CYAN);
+        }
+        if(topLeft == 50 )
+        {
+        	g.setColor(Color.GRAY);
+        }
+        if(topLeft == 60)
+        {
+        	g.setColor(Color.CYAN);
+        }
+        if(topLeft == 70 )
+        {
+        	g.setColor(Color.GRAY);
+        }
+        if(topLeft == 80 )
+        {
+        	g.setColor(Color.CYAN);
+        }
+        g.fillArc( topLeft + 10, topLeft + 25, radius, radius, 0, 360 );   
+      }
+   }
+}
