@@ -1,0 +1,175 @@
+#include<vector>
+#include<iostream>
+#include<algorithm>
+#include<deque>
+#include<iterator>
+#include<list>
+#include<stack>
+#include<queue>
+
+using namespace std;
+
+
+int main()
+{
+	stack<int> intStack;
+	intStack.push(1);
+	intStack.push(2);
+	intStack.push(3);
+	intStack.push(4);
+
+	
+	vector<int>::iterator move, beg, end;  //create 3 iterators
+	int choice, insert;
+	while (1)
+	{
+		cout << endl;
+		cout << "\t" << "MENU" << endl;
+		cout << "\t" << "====" << endl << endl;
+		cout << "1.  Size" << endl;         
+		cout << "2.  Empty" << endl;   
+		cout << "3.  Push" << endl;   
+		cout << "4.  Top" << endl;     
+		cout << "5.  Pop" << endl;
+		cout << "6. Print" << endl << endl;
+
+
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 1:
+		{
+			intStack.size();
+			break;
+		}
+		case 2:
+		{
+			cout << intStack.empty();
+			break;
+		}
+		case 3:
+		{
+			cout << "What number would you like to insert?: ";
+			cin >> insert;
+			intStack.push(insert);
+
+			break;
+		}
+		case 4:
+		{
+			cout << intStack.top();
+			break;
+		}
+		case 5:
+		{
+			intStack.pop();
+		}
+		case 6:
+		{
+			cout << "intStack elements: ";
+
+			while (!intStack.empty())
+			{
+				cout << intStack.top() << " ";
+				intStack.pop();
+
+			}
+			break;
+		}
+		}
+	}
+	system("pause");
+	return 0;
+}
+
+
+For Queue
+
+#include<vector>
+#include<iostream>
+#include<algorithm>
+#include<deque>
+#include<iterator>
+#include<list>
+#include<stack>
+#include<queue>
+
+using namespace std;
+
+
+int main()
+{
+	queue<int> intQueue;
+	intQueue.push(1);
+	intQueue.push(2);
+	intQueue.push(3);
+	intQueue.push(4);
+
+	
+	
+	int choice, insert;
+	while (1)
+	{
+		cout << endl;
+		cout << "\t" << "MENU" << endl;
+		cout << "\t" << "====" << endl << endl;
+		cout << "1.  Size" << endl;         
+		cout << "2.  Empty" << endl;   
+		cout << "3.  Push" << endl;   
+		cout << "4.  Front" << endl;     
+		cout << "5.  Pop" << endl;
+		cout << "6. Print" << endl << endl;
+
+
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 1:
+		{
+			intQueue.size();
+			break;
+		}
+		case 2:
+		{
+			cout << intQueue.empty();
+			break;
+		}
+		case 3:
+		{
+			cout << "What number would you like to insert?: ";
+			cin >> insert;
+			intQueue.push(insert);
+
+			break;
+		}
+		case 4:
+		{
+			cout << intQueue.front();
+			break;
+		}
+		case 5:
+		{
+			intQueue.pop();
+		}
+		case 6:
+		{
+			cout << "intQueue elements: ";
+
+			while (!intQueue.empty())
+			{
+				cout << intQueue.front() << " ";
+				intQueue.pop();
+
+			}
+			break;
+		}
+		}
+	}
+	system("pause");
+	return 0;
+}
+
+
+

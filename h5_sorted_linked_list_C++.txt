@@ -1,0 +1,158 @@
+#include<iostream>
+
+
+using namespace std;
+
+
+
+struct node //node
+{
+	int info; //regular data
+	node *link; // pointer to the next node
+};
+
+class ll
+{
+public:
+	ll()
+	{
+		size = 0;
+		head = NULL;
+	}
+
+	void create()
+	{
+		node *next; //create a node pointer
+		int count = 0;
+
+		cout << "Enter the size of the list you want to create:";
+		cin >> size;
+		for (int i = 0; i<size; i++)
+		{
+			next = new node; //create a new node
+			next->info = count;   //put data in the node       
+			next->link = head; //link the node to the head
+			head = next; // shift the head to the new node
+			count = count + 5;
+		}
+		cout << "List created" << endl;
+	}
+
+	void print()
+	{
+		node *next; //create a node pointer
+		next = head; // link the node pointer to the head
+
+		cout << "The List" << endl;
+		cout << "--------" << endl<<endl;
+
+		for (int i = 0; i<size; i++)
+		{
+			cout << next->info << endl; //display node address and info
+			next = next->link; // move node pointer to the next node
+		}
+
+	}
+
+	void insert()
+	{
+		node *ins, *next, *search, *temp, *compare; //create two node pointer
+		int number, flag = -1;
+
+		cout << "Enter number:";
+		cin >> number;
+
+		for (int i = 0; i<size; i++)
+		{
+			search = head;
+			if (number == search->info) //search for value in list
+				flag = i; //store list index
+
+			search = search->link; 
+		}
+
+		if (flag != -1)
+			cout << "Input a different number: " << endl;
+
+		else if (number > ((size - 1) * 5))
+		{
+			cout << "Input a smaller number: " << endl;
+		}
+
+		else if (number<0)
+			cout << "Input a bigger number." << endl;
+
+		else
+		{
+			temp = new node;
+			compare = head;
+			for (int j = 0; j < size - 1; j++)
+			{
+				if (number < compare->info && number > compare->link->info)
+				{
+					temp->info = number;
+					break;
+				}
+				compare = compare->link;
+			}
+
+			temp->link = compare->link; // replace the node with the traversed node
+			compare->link = temp;  // replace the traversed node with the inserted node   
+			size++; //increase list size
+			cout << "Number inserted: " << endl;
+		}
+	}
+
+	void done()
+	{
+		exit(0);
+	}
+
+private:
+	node *head; //the first node of the first linked list
+	int size; //size of the first linked list
+};
+
+int main()
+{
+	int choice = 0;
+	ll obj1;
+
+	obj1.create();
+
+	while (1)
+	{
+
+		system("cls");
+		cout << "Menu" << endl;
+		cout << "====" << endl;
+		cout << "1. Print list" << endl;
+		cout << "2. Insert value" << endl;
+		cout << "3. Quit" << endl;
+		cin >> choice;
+
+		switch (choice)
+		{
+		case 1:
+			obj1.print();
+			break;
+
+		case 2:
+			obj1.insert();
+			break;
+
+		case 3:
+			obj1.done();
+			break;
+
+		default:
+			cout << "Invalid option" << endl;
+		}
+
+		system("pause");
+	}
+	return 0;
+}
+
+
+

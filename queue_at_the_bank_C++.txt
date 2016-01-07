@@ -1,0 +1,134 @@
+#include<iostream>
+#include<string>
+#include<time.h>
+using namespace std;
+
+
+
+class queue
+{
+private:
+	int *p;//pointer to create array
+	int *q;//pointer to create array
+	int rear, size, customer, count, val, wTime, aTime, tTime;
+
+public:
+
+	queue()
+	{
+
+		int rear = 0;
+		int count = 0;
+	}
+
+	void create()
+	{
+
+		p = new int[15];
+		q = new int[15];
+
+	}
+
+	void print(){
+
+		cout << "TIME SLOT" << "\t" << "CUSTOMER" << endl;
+		cout << "================================" << endl;
+		for (int i = 0; i<rear; i++)
+			cout << p[i] << "\t" << q[i] << endl;
+	}
+
+
+	void get(){
+
+		cout << "\t" << "Total Time:" << tTime << endl;
+		cout << "\t" << "Average Time:" << aTime << endl;
+		cout << "\t" << "Customers:" << count << endl;
+
+
+
+
+	}
+
+	void add()
+	{
+		if (rear == 15)
+			cout << "Queue is full" << endl;
+		else
+		{
+			val = time(0);
+			p[rear] = val;
+			q[rear] = customer;
+			rear++;
+			customer++;
+
+		}
+	}
+
+	void del()
+	{
+		if (rear == 0)
+			cout << "Queue is empty" << endl;
+		else
+		{
+			wTime = time(0) - p[0];
+			count++;
+			for (int i = 0; i<rear - 1; i++)
+			{
+				p[i] = p[i + 1];
+
+			}
+			tTime = tTime + wTime;
+			aTime = tTime / count;
+			rear--;
+			customer--;
+
+		}
+	}
+
+
+};
+
+int main()
+{
+	int choice = 0;
+	queue  obj1;
+	queue  obj2;
+	obj1.create();
+	obj2.create();
+	while (1)
+	{
+		system("cls");
+		cout <<"\t"<< "FEDERAL BANK OF ALEX" << endl;
+		cout <<"\t"<< "====================" << endl;
+		cout <<"\t"<< "1. Print" << endl;
+		cout <<"\t"<< "2. Add" << endl;
+		cout <<"\t"<< "3. Del" << endl;
+		cout <<"\t"<< "4. Get Data" << endl;
+
+		cin >> choice;
+		switch (choice){
+		case 1:
+			obj1.print();
+			break;
+
+
+		case 2:
+			obj1.add();
+			break;
+
+		case 3:
+			obj1.del();
+			break;
+
+
+		case 4:
+			obj1.get();
+			break;
+
+		default:
+			cout << "Invalid option" << endl;
+		}
+		system("pause");
+	}
+	return 0;
+}
